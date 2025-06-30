@@ -33,11 +33,15 @@ export default function Navbar({ isMobileView }) {
       <div className="h-[60px] px-4 flex items-center justify-between">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold shadow-sm">
-              T4C
+            <div className="h-10 w-10 flex items-center justify-center">
+              <img 
+                src="/src/assets/TrashValues.png" 
+                alt="TrashValues Logo" 
+                className="h-10 w-10 object-contain"
+              />
             </div>
             {!isMobileView && (
-              <h1 className="text-lg font-medium">Trash4Cash</h1>
+              <h1 className="text-lg font-medium">TrashValues</h1>
             )}
           </div>
 

@@ -91,7 +91,7 @@ export default function CustomSidebar({ isOpen, toggleSidebar, isMobile }) {
             </div>
             <div>
               <span className="font-bold text-xl whitespace-nowrap">
-                Trash4Cash
+                TrashValue
               </span>
               <p className="text-xs text-gray-500 mt-[-2px]">Admin Dashboard</p>
             </div>
