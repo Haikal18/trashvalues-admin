@@ -80,7 +80,7 @@ function Login() {
 
           <CardHeader className="pt-6 pb-4 text-center space-y-1">
             <CardTitle className="text-2xl font-bold tracking-tight">
-              Trash4Cash Admin
+              TrashValue Admin
             </CardTitle>
             <CardDescription className="text-gray-500">
               Masuk ke dashboard admin untuk mengelola sistem
@@ -100,7 +100,7 @@ function Login() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="admin@trash4cash.com"
+                    placeholder="admin@gmail.com"
                     className={`pl-10 h-11 rounded-lg bg-gray-50 border-gray-200 focus-visible:ring-green-500 ${
                       errors.email
                         ? "border-red-500 focus-visible:ring-red-500"
@@ -215,7 +215,7 @@ function Login() {
 
         <div className="mt-6 text-center">
           <p className="text-xs text-white/90">
-            &copy; {new Date().getFullYear()} Trash4Cash Admin Panel. All rights
+            &copy; {new Date().getFullYear()} TrashValue Admin Panel. All rights
             reserved.
           </p>
         </div>
