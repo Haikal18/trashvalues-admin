@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { useWasteTypes } from "@/hooks/use-waste-types";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -30,6 +30,7 @@ import {
   Pencil,
   Trash2,
   Plus,
+  Eye,
 } from "lucide-react";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -44,6 +45,7 @@ import EditWasteTypeDialog from "@/components/waste-types/EditWasteTypeDialog";
 import DeleteWasteTypeDialog from "@/components/waste-types/DeleteWasteTypeDialog";
 import AddWasteTypeDialog from "@/components/waste-types/AddWasteTypeDialog";
 import WasteTypeTableSkeleton from "@/components/waste-types/WasteTypeTableSkeleton";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { Toaster } from "sonner";
 
 export default function WasteTypes() {
@@ -67,6 +69,9 @@ export default function WasteTypes() {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedWasteType, setSelectedWasteType] = useState(null);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(max-width: 1024px)");
 
   const openAddDialog = () => {
     setAddDialogOpen(true);
@@ -109,7 +114,173 @@ export default function WasteTypes() {
     closeDeleteDialog();
   };
 
-  const columns = [
+  // Mobile columns - card layout
+  const mobileColumns = [
+    {
+      name: "Waste Type",
+      sortable: true,
+      grow: 1,
+      cell: (row) => (
+        <div className="py-2 pr-2 w-full">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-md overflow-hidden mr-3 flex-shrink-0">
+                <img
+                  src={row.image}
+                  alt={row.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col min-w-0 flex-1">
+                <span className="font-medium text-sm truncate">{row.name}</span>
+                <span className="text-xs text-gray-500">
+                  {formatCurrency(row.pricePerKg)}/kg
+                </span>
+              </div>
+            </div>
+            <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+              {row.isActive ? "Active" : "Inactive"}
+            </Badge>
+          </div>
+
+          <div className="text-sm text-gray-600 mb-2 line-clamp-2">
+            {row.description}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-xs text-gray-500">
+              {formatDate(row.createdAt)}
+            </span>
+            <div className="flex space-x-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => openEditDialog(row)}
+                className="h-8 w-8 p-0"
+              >
+                <Eye className="h-4 w-4" />
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => openEditDialog(row)}>
+                    <Pencil className="h-4 w-4 mr-2" /> Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-red-600"
+                    onClick={() => openDeleteDialog(row)}
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" /> Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  // Tablet columns
+  const tabletColumns = [
+    {
+      name: "Waste Type",
+      selector: (row) => row.name,
+      sortable: true,
+      grow: 1,
+      cell: (row) => (
+        <div className="flex items-center py-1">
+          <div className="h-10 w-10 rounded-md overflow-hidden mr-3 flex-shrink-0">
+            <img
+              src={row.image}
+              alt={row.name}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span className="font-medium text-sm">{row.name}</span>
+            <span className="text-xs text-gray-500">
+              {formatCurrency(row.pricePerKg)}/kg
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: "Info",
+      sortable: false,
+      grow: 1,
+      cell: (row) => (
+        <div className="flex flex-col py-1">
+          <div className="text-sm text-gray-600 mb-1 line-clamp-1">
+            {row.description}
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+              {row.isActive ? "Active" : "Inactive"}
+            </Badge>
+            <span className="text-xs text-gray-500">
+              {formatDate(row.createdAt)}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: "Actions",
+      width: "100px",
+      cell: (row) => (
+        <div className="flex">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => openEditDialog(row)}
+            className="h-8 w-8"
+          >
+            <Eye className="h-4 w-4" />
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => openEditDialog(row)}>
+                <Pencil className="h-4 w-4 mr-2" /> Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="text-red-600"
+                onClick={() => openDeleteDialog(row)}
+              >
+                <Trash2 className="h-4 w-4 mr-2" /> Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ),
+    },
+  ];
+
+  // Desktop columns (original table structure)
+  const desktopColumns = [
+    {
+      accessorKey: "image",
+      header: "Image",
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <img
+            src={row.getValue("image")}
+            alt={row.getValue("name")}
+            className="h-10 w-10 rounded-md object-cover"
+          />
+        </div>
+      ),
+    },
     {
       accessorKey: "name",
       header: "Name",
@@ -132,7 +303,6 @@ export default function WasteTypes() {
           {row.getValue("description")}
         </div>
       ),
-      enableHiding: true,
     },
     {
       accessorKey: "isActive",
@@ -140,7 +310,7 @@ export default function WasteTypes() {
       cell: ({ row }) => {
         const isActive = row.getValue("isActive");
         return (
-          <Badge variant={isActive ? "success" : "destructive"}>
+          <Badge variant={isActive ? "default" : "secondary"}>
             {isActive ? "Active" : "Inactive"}
           </Badge>
         );
@@ -153,23 +323,10 @@ export default function WasteTypes() {
         const date = new Date(row.getValue("createdAt"));
         return <div>{format(date, "PPP")}</div>;
       },
-      enableHiding: true,
-    },
-    {
-      accessorKey: "image",
-      header: "Image",
-      cell: ({ row }) => (
-        <div className="flex justify-center">
-          <img
-            src={row.getValue("image")}
-            alt={row.getValue("name")}
-            className="h-10 w-10 rounded-md object-cover"
-          />
-        </div>
-      ),
     },
     {
       id: "actions",
+      header: "Actions",
       cell: ({ row }) => {
         const wasteType = row.original;
         return (
@@ -199,98 +356,109 @@ export default function WasteTypes() {
     },
   ];
 
-  const getVisibleColumns = () => {
-    if (window.innerWidth < 640) {
-      return columns.filter(
-        (col) =>
-          !col.enableHiding &&
-          col.accessorKey !== "createdAt" &&
-          col.accessorKey !== "description"
-      );
-    } else if (window.innerWidth < 1024) {
-      return columns.filter((col) => col.accessorKey !== "description");
-    } else {
-      return columns;
-    }
+  const getColumns = () => {
+    if (isMobile) return mobileColumns;
+    if (isTablet) return tabletColumns;
+    return desktopColumns;
   };
 
   const table = useReactTable({
     data: wasteTypes,
-    columns: getVisibleColumns(),
+    columns: desktopColumns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  // Custom table component for mobile/tablet using simple structure
+  const ResponsiveTable = ({ data, columns }) => {
+    return (
+      <div className="space-y-2">
+        {data.map((row, index) => (
+          <div key={index} className="border rounded-lg p-3 bg-white">
+            {columns[0].cell(row)}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
-      <div className="space-y-6 p-4 md:p-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="text-xl md:text-2xl font-bold">Waste Types</h1>
-          <Button onClick={openAddDialog}>
+          <Button onClick={openAddDialog} className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle>All Waste Types</CardTitle>
+            <CardTitle className="text-lg">All Waste Types</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-6">
             {isLoading ? (
               <WasteTypeTableSkeleton />
             ) : (
-              <div className="rounded-md border overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                      <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => (
-                          <TableHead key={header.id}>
-                            {header.isPlaceholder
-                              ? null
-                              : flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext()
-                                )}
-                          </TableHead>
+              <>
+                {isMobile || isTablet ? (
+                  <ResponsiveTable data={wasteTypes} columns={getColumns()} />
+                ) : (
+                  <div className="rounded-md border overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                          <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                              <TableHead key={header.id}>
+                                {header.isPlaceholder
+                                  ? null
+                                  : flexRender(
+                                      header.column.columnDef.header,
+                                      header.getContext()
+                                    )}
+                              </TableHead>
+                            ))}
+                          </TableRow>
                         ))}
-                      </TableRow>
-                    ))}
-                  </TableHeader>
-                  <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row) => (
-                        <TableRow
-                          key={row.id}
-                          data-state={row.getIsSelected() && "selected"}
-                        >
-                          {row.getVisibleCells().map((cell) => (
-                            <TableCell key={cell.id}>
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
+                      </TableHeader>
+                      <TableBody>
+                        {table.getRowModel().rows?.length ? (
+                          table.getRowModel().rows.map((row) => (
+                            <TableRow
+                              key={row.id}
+                              data-state={row.getIsSelected() && "selected"}
+                            >
+                              {row.getVisibleCells().map((cell) => (
+                                <TableCell key={cell.id}>
+                                  {flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                  )}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell
+                              colSpan={desktopColumns.length}
+                              className="h-24 text-center"
+                            >
+                              No waste types found.
                             </TableCell>
-                          ))}
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell
-                          colSpan={getVisibleColumns().length}
-                          className="h-24 text-center"
-                        >
-                          No waste types found.
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </>
             )}
 
-            <div className="mt-4 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2 w-full md:w-auto">
-                <span className="text-sm text-gray-500">Rows per page</span>
+            {/* Pagination */}
+            <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <span className="text-sm text-gray-500 whitespace-nowrap">Rows per page</span>
                 <Select
                   value={currentLimit.toString()}
                   onValueChange={(value) => changeLimit(parseInt(value))}
@@ -307,8 +475,8 @@ export default function WasteTypes() {
                 </Select>
               </div>
 
-              <div className="flex items-center gap-2 w-full md:w-auto justify-end">
-                <span className="text-sm text-gray-500">
+              <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
+                <span className="text-sm text-gray-500 whitespace-nowrap">
                   Page {currentPage} of {metadata.totalPages || 1}
                 </span>
                 <div className="flex gap-1">
@@ -317,6 +485,7 @@ export default function WasteTypes() {
                     size="icon"
                     onClick={() => goToPage(currentPage - 1)}
                     disabled={currentPage <= 1}
+                    className="h-8 w-8"
                   >
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
@@ -325,6 +494,7 @@ export default function WasteTypes() {
                     size="icon"
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage >= (metadata.totalPages || 1)}
+                    className="h-8 w-8"
                   >
                     <ArrowRight className="h-4 w-4" />
                   </Button>
