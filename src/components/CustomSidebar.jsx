@@ -84,17 +84,14 @@ export default function CustomSidebar({ isOpen, toggleSidebar, isMobile }) {
             : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="p-5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold shadow-md">
-              T4C
-            </div>
-            <div>
-              <span className="font-bold text-xl whitespace-nowrap">
-                TrashValue
-              </span>
-              <p className="text-xs text-gray-500 mt-[-2px]">Admin Dashboard</p>
-            </div>
+        <div className="p-3 sm:p-4 lg:p-5 flex items-center justify-between">
+          <div className="flex flex-col justify-center pl-1 sm:pl-2">
+            <span className="font-bold text-lg sm:text-xl lg:text-xl whitespace-nowrap">
+              TrashValue
+            </span>
+            <p className="text-xs text-gray-500 mt-[-2px] hidden sm:block">
+              Admin Dashboard
+            </p>
           </div>
         </div>
 
