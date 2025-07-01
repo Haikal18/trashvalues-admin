@@ -138,7 +138,13 @@ export default function WasteTypes() {
                 </span>
               </div>
             </div>
-            <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+            <Badge 
+              className={`text-xs ${
+                row.isActive 
+                  ? "bg-green-500 text-white hover:bg-green-600" 
+                  : "bg-red-500 text-white hover:bg-red-600"
+              }`}
+            >
               {row.isActive ? "Active" : "Inactive"}
             </Badge>
           </div>
@@ -220,7 +226,13 @@ export default function WasteTypes() {
             {row.description}
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+            <Badge 
+              className={`text-xs ${
+                row.isActive 
+                  ? "bg-green-500 text-white hover:bg-green-600" 
+                  : "bg-red-500 text-white hover:bg-red-600"
+              }`}
+            >
               {row.isActive ? "Active" : "Inactive"}
             </Badge>
             <span className="text-xs text-gray-500">
@@ -310,7 +322,13 @@ export default function WasteTypes() {
       cell: ({ row }) => {
         const isActive = row.getValue("isActive");
         return (
-          <Badge variant={isActive ? "default" : "secondary"}>
+          <Badge 
+            className={`${
+              isActive 
+                ? "bg-green-500 text-white hover:bg-green-600" 
+                : "bg-red-500 text-white hover:bg-red-600"
+            }`}
+          >
             {isActive ? "Active" : "Inactive"}
           </Badge>
         );
@@ -443,7 +461,13 @@ export default function WasteTypes() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+                    <Badge 
+                      className={`text-xs ${
+                        row.isActive 
+                          ? "bg-green-500 text-white hover:bg-green-600" 
+                          : "bg-red-500 text-white hover:bg-red-600"
+                      }`}
+                    >
                       {row.isActive ? "Active" : "Inactive"}
                     </Badge>
                     <span className="text-xs text-gray-500">
@@ -464,7 +488,7 @@ export default function WasteTypes() {
       <div className="space-y-4 p-4 md:p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="text-xl md:text-2xl font-bold">Waste Types</h1>
-          <Button onClick={openAddDialog} className="w-full sm:w-auto">
+          <Button onClick={openAddDialog} className="w-full sm:w-auto bg-[#4CAF50] text-white">
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>
