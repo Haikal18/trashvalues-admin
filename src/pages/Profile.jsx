@@ -171,8 +171,8 @@ function Profile() {
                       onChange={handleProfileChange}
                     />
                   </div>
-                  <div className="flex gap-2 justify-end">
-                    <Button type="submit" disabled={loadingProfile}>
+                  <div className="flex gap-2 justify-end ">
+                    <Button className="bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" type="submit" disabled={loadingProfile}>
                       {loadingProfile ? "Updating..." : "Update Profile"}
                     </Button>
                   </div>
@@ -232,7 +232,7 @@ function Profile() {
                     >
                       Cancel
                     </Button>
-                    <Button type="submit" disabled={loadingPassword}>
+                    <Button className="bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" type="submit" disabled={loadingPassword}>
                       {loadingPassword ? "Updating..." : "Update Password"}
                     </Button>
                   </div>
