@@ -157,7 +157,7 @@ export default function EditWasteTypeDialog({
             <Button variant="outline" type="button" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" disabled={isUpdating}>
+            <Button className="bg-[#4CAF50] hover:bg-[#45a049] text-white" type="submit" disabled={isUpdating}>
               {isUpdating ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...
