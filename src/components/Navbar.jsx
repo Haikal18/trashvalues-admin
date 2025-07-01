@@ -48,13 +48,7 @@ export default function Navbar({ isMobileView }) {
           {!isMobileView && (
             <>
               <Separator orientation="vertical" className="mx-4 h-6" />
-              <div className="relative w-64">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search..."
-                  className="pl-8 bg-gray-50 border-none focus-visible:ring-1"
-                />
-              </div>
+
             </>
           )}
         </div>
