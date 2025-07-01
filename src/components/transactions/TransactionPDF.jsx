@@ -222,7 +222,7 @@ const TransactionPDF = ({ transactions }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.companyName}>Trash4Cash</Text>
+            <Text style={styles.companyName}>TrashValue</Text>
             <Text style={styles.companyDetail}>
               Konversi Sampah Menjadi Uang
             </Text>
@@ -232,7 +232,7 @@ const TransactionPDF = ({ transactions }) => {
               Tanggal: {getCurrentDate()}
             </Text>
             <Text style={styles.companyDetail}>
-              Ref: T4C-
+              Ref: TrashValue-
               {Math.floor(Math.random() * 10000)
                 .toString()
                 .padStart(4, "0")}
@@ -245,7 +245,7 @@ const TransactionPDF = ({ transactions }) => {
         <View style={styles.reportInfoContainer}>
           <Text style={styles.reportInfoText}>
             Laporan ini berisi ringkasan transaksi yang diproses dalam sistem
-            Trash4Cash. Semua nilai dalam Rupiah (IDR).
+            TrashValue. Semua nilai dalam Rupiah (IDR).
           </Text>
         </View>
 
@@ -342,10 +342,10 @@ const TransactionPDF = ({ transactions }) => {
           ))}
         </View>
 
-        <Text style={styles.watermark}>Trash4Cash</Text>
+        <Text style={styles.watermark}>TrashValue</Text>
 
         <Text style={styles.footer}>
-          Dokumen ini dibuat secara otomatis oleh sistem Trash4Cash pada{" "}
+          Dokumen ini dibuat secara otomatis oleh sistem TrashValue pada{" "}
           {new Date().toLocaleDateString("id-ID", {
             year: "numeric",
             month: "long",
