@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Bell, LogOut, User, Settings, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
+import logo from "../assets/TrashValues.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +35,7 @@ export default function Navbar({ isMobileView }) {
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 flex items-center justify-center">
               <img 
-                src="/src/assets/TrashValues.png" 
+                src={logo} 
                 alt="TrashValues Logo" 
                 className="h-10 w-10 object-contain"
               />
