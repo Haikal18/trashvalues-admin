@@ -160,7 +160,11 @@ function History() {
                   variant={params.status === "" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Semua
                 </Button>
@@ -168,7 +172,11 @@ function History() {
                   variant={params.status === "PENDING" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("PENDING")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "PENDING" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Pending
                 </Button>
@@ -176,7 +184,11 @@ function History() {
                   variant={params.status === "PROCESSING" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("PROCESSING")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "PROCESSING" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Processing
                 </Button>
@@ -184,7 +196,11 @@ function History() {
                   variant={params.status === "COMPLETED" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("COMPLETED")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "COMPLETED" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Completed
                 </Button>
@@ -192,7 +208,11 @@ function History() {
                   variant={params.status === "REJECTED" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("REJECTED")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "REJECTED" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Rejected
                 </Button>
