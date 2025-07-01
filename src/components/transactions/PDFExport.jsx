@@ -25,7 +25,7 @@ const PDFExport = ({ isOpen, onClose, transactions }) => {
           >
             {({ loading, error }) => (
               <Button
-                className="w-full"
+                className="w-full bg-[#4CAF50] hover:bg-[#45A049] text-white"
                 disabled={loading}
               >
                 {loading ? (
@@ -35,7 +35,7 @@ const PDFExport = ({ isOpen, onClose, transactions }) => {
                   </>
                 ) : (
                   <>
-                    <Download className="mr-2 h-4 w-4" />
+                    <Download className="mr-2 h-4 w-4 " />
                     Download PDF
                   </>
                 )}
