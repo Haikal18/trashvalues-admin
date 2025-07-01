@@ -144,15 +144,17 @@ function Home() {
                   </div>
                 ) : (
                   <>
-                    <div className="flex items-center justify-between space-x-2">
-                      <div className="flex flex-col gap-1">
+                    <div className="flex items-start justify-between">
+                      <div className="flex flex-col gap-1 min-w-0 pr-3">
                         <span className="text-sm font-medium text-muted-foreground">
                           {stat.title}
                         </span>
-                        <span className="text-2xl font-bold">{stat.value}</span>
+                        <span className="text-2xl font-bold truncate">
+                          {stat.value}
+                        </span>
                       </div>
                       <div
-                        className={`p-2 rounded-full ,bg-gray-100 text-gray-700 `}
+                        className="p-2 rounded-full bg-gray-100 text-gray-700 flex-shrink-0"
                       >
                         {stat.icon}
                       </div>
