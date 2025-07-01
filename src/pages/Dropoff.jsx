@@ -142,7 +142,11 @@ function Dropoff() {
                   variant={params.status === "" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Semua
                 </Button>
@@ -150,7 +154,11 @@ function Dropoff() {
                   variant={params.status === "PENDING" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("PENDING")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "PENDING" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Pending
                 </Button>
@@ -158,7 +166,11 @@ function Dropoff() {
                   variant={params.status === "PROCESSING" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("PROCESSING")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "PROCESSING" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Processing
                 </Button>
@@ -166,7 +178,11 @@ function Dropoff() {
                   variant={params.status === "COMPLETED" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("COMPLETED")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "COMPLETED" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Completed
                 </Button>
@@ -174,7 +190,11 @@ function Dropoff() {
                   variant={params.status === "REJECTED" ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleStatusFilterChange("REJECTED")}
-                  className="text-xs h-9 flex-1 sm:flex-none"
+                  className={`text-xs h-9 flex-1 sm:flex-none ${
+                    params.status === "REJECTED" 
+                      ? "bg-[#4CAF50] hover:bg-[#45a049] text-white border-[#4CAF50]" 
+                      : "border-[#4CAF50] text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white"
+                  }`}
                 >
                   Rejected
                 </Button>
@@ -208,61 +228,91 @@ function Dropoff() {
               </p>
             </div>
           ) : (
-            <DataTable
-              columns={columns}
-              data={filteredDropoffs}
-              pagination
-              paginationServer={!searchTerm} // Use client pagination when searching
-              paginationTotalRows={searchTerm ? filteredDropoffs.length : totalRows}
-              onChangePage={handlePageChange}
-              onChangeRowsPerPage={handlePerRowsChange}
-              paginationPerPage={params.limit}
-              paginationRowsPerPageOptions={[10, 25, 50, 100]}
-              responsive
-              highlightOnHover
-              pointerOnHover
-              persistTableHead
-              noHeader={isMobile}
-              sortIcon={<ChevronDown size={16} />}
-              defaultSortFieldId={1}
-              paginationComponentOptions={{
-                rowsPerPageText: "Baris per halaman:",
-                rangeSeparatorText: "dari",
-              }}
-              customStyles={{
-                headRow: {
-                  style: {
-                    backgroundColor: "#f9fafb",
-                    borderBottom: "1px solid #e5e7eb",
-                    fontWeight: "600",
-                    color: "#374151",
-                    fontSize: "0.875rem",
-                  },
-                },
-                rows: {
-                  style: {
-                    minHeight: isMobile ? "120px" : "60px",
-                    fontSize: "0.875rem",
-                    color: "#111827",
-                    "&:not(:last-of-type)": {
-                      borderBottom: "1px solid #f3f4f6",
+            <div className="overflow-x-auto">
+              <DataTable
+                columns={columns}
+                data={filteredDropoffs}
+                pagination
+                paginationServer={!searchTerm}
+                paginationTotalRows={searchTerm ? filteredDropoffs.length : totalRows}
+                onChangePage={handlePageChange}
+                onChangeRowsPerPage={handlePerRowsChange}
+                paginationPerPage={params.limit}
+                paginationRowsPerPageOptions={[10, 25, 50, 100]}
+                responsive
+                highlightOnHover
+                pointerOnHover
+                persistTableHead
+                noHeader={isMobile}
+                sortIcon={<ChevronDown size={16} />}
+                defaultSortFieldId={1}
+                paginationComponentOptions={{
+                  rowsPerPageText: "Baris per halaman:",
+                  rangeSeparatorText: "dari",
+                }}
+                customStyles={{
+                  table: {
+                    style: {
+                      minWidth: '100%',
+                      width: '100%',
                     },
                   },
-                },
-                pagination: {
-                  style: {
-                    borderTop: "1px solid #e5e7eb",
-                    fontSize: "0.875rem",
+                  tableWrapper: {
+                    style: {
+                      display: 'table',
+                      width: '100%',
+                      overflowX: 'auto',
+                    },
                   },
-                },
-                cells: {
-                  style: {
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
+                  headRow: {
+                    style: {
+                      backgroundColor: "#f9fafb",
+                      borderBottom: "1px solid #e5e7eb",
+                      fontWeight: "600",
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      minHeight: "56px",
+                      whiteSpace: "nowrap",
+                    },
                   },
-                },
-              }}
-            />
+                  headCells: {
+                    style: {
+                      paddingLeft: "16px",
+                      paddingRight: "16px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    },
+                  },
+                  rows: {
+                    style: {
+                      minHeight: isMobile ? "120px" : "60px",
+                      fontSize: "0.875rem",
+                      color: "#111827",
+                      "&:not(:last-of-type)": {
+                        borderBottom: "1px solid #f3f4f6",
+                      },
+                    },
+                  },
+                  cells: {
+                    style: {
+                      paddingLeft: "16px",
+                      paddingRight: "16px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    },
+                  },
+                  pagination: {
+                    style: {
+                      borderTop: "1px solid #e5e7eb",
+                      fontSize: "0.875rem",
+                      minHeight: "56px",
+                    },
+                  },
+                }}
+              />
+            </div>
           )}
         </Card>
       </div>
