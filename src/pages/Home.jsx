@@ -238,15 +238,6 @@ function Home() {
                       className="flex items-center justify-between p-4 sm:px-6"
                     >
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage
-                            src={transaction.user.image}
-                            alt={transaction.user.name}
-                          />
-                          <AvatarFallback>
-                            {transaction.user.name.charAt(0)}
-                          </AvatarFallback>
-                        </Avatar>
                         <div>
                           <div className="font-medium text-sm">
                             {transaction.user.name}
@@ -291,15 +282,6 @@ function Home() {
                       className="flex items-center justify-between p-4 sm:px-6"
                     >
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage
-                            src={dropoff.user.image}
-                            alt={dropoff.user.name}
-                          />
-                          <AvatarFallback>
-                            {dropoff.user.name.charAt(0)}
-                          </AvatarFallback>
-                        </Avatar>
                         <div>
                           <div className="font-medium text-sm">
                             {dropoff.user.name}
