@@ -127,14 +127,6 @@ function Home() {
         <h1 className="text-2xl font-bold">Dashboard</h1>
 
         <div className="flex gap-2">
-          <div className="relative w-64 hidden md:block">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Cari..."
-              className="w-full rounded-lg pl-9"
-            />
-          </div>
           <Button variant="outline" size="sm" className="gap-1" onClick={() => window.location.reload()}>
             <RefreshCw className="h-4 w-4" />
             <span className="hidden sm:inline">Refresh</span>
