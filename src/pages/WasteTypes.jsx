@@ -368,17 +368,95 @@ export default function WasteTypes() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // Custom table component for mobile/tablet using simple structure
+  // Custom table component for mobile/tablet
   const ResponsiveTable = ({ data, columns }) => {
-    return (
-      <div className="space-y-2">
-        {data.map((row, index) => (
-          <div key={index} className="border rounded-lg p-3 bg-white">
-            {columns[0].cell(row)}
-          </div>
-        ))}
-      </div>
-    );
+    if (isMobile) {
+      // Mobile menggunakan card layout
+      return (
+        <div className="space-y-2">
+          {data.map((row, index) => (
+            <div key={index} className="border rounded-lg p-3 bg-white">
+              {columns[0].cell(row)}
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      // Tablet menggunakan card layout yang lebih terstruktur
+      return (
+        <div className="space-y-3">
+          {data.map((row, index) => (
+            <div key={index} className="border rounded-lg p-4 bg-white">
+              <div className="flex items-start justify-between">
+                {/* Kolom pertama - Waste Type info */}
+                <div className="flex items-center flex-1 mr-4">
+                  <div className="h-12 w-12 rounded-md overflow-hidden mr-3 flex-shrink-0">
+                    <img
+                      src={row.image}
+                      alt={row.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-medium text-base">{row.name}</span>
+                    <span className="text-sm text-gray-500">
+                      {formatCurrency(row.pricePerKg)}/kg
+                    </span>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => openEditDialog(row)}
+                    className="h-8 w-8"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => openEditDialog(row)}>
+                        <Pencil className="h-4 w-4 mr-2" /> Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="text-red-600"
+                        onClick={() => openDeleteDialog(row)}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" /> Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
+
+              {/* Info section */}
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <div className="text-sm text-gray-600 mb-2 line-clamp-2">
+                  {row.description}
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Badge variant={row.isActive ? "default" : "secondary"} className="text-xs">
+                      {row.isActive ? "Active" : "Inactive"}
+                    </Badge>
+                    <span className="text-xs text-gray-500">
+                      {formatDate(row.createdAt)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
   };
 
   return (
