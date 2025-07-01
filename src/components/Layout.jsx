@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CustomSidebar from "./CustomSidebar";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+
 
 function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
