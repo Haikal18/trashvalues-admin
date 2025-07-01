@@ -1,109 +1,43 @@
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "@/lib/api";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
-// API Functions
-const fetchTransactionById = async (id) => {
-  const response = await api.get(`/transactions/${id}`);
-  return response.data.data || response.data;
-};
-
-const updateTransactionStatus = async ({ id, status }) => {
-  const response = await api.patch(`/transactions/${id}/status`, { status });
-  return response.data;
-};
-
-export function useTransactionDialogs() {
-  const queryClient = useQueryClient();
-  
-  // Dialog states
+export function useTransactionDialogs(updateTransactionStatus, getTransactionById) {
+  const { toast } = useToast();
   const [detailOpen, setDetailOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
-  // Query for selected transaction
-  const {
-    data: selectedTransaction,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["transaction", selectedId],
-    queryFn: () => fetchTransactionById(selectedId),
-    enabled: !!selectedId, // Only run when selectedId exists
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    cacheTime: 5 * 60 * 1000, // 5 minutes
-  });
-
-  // Mutation for updating status
-  const updateStatusMutation = useMutation({
-    mutationFn: updateTransactionStatus,
-    onSuccess: (data, variables) => {
-      // Update the selected transaction cache
-      queryClient.setQueryData(["transaction", variables.id], (oldData) => {
-        if (!oldData) return oldData;
-        return { ...oldData, status: variables.status };
-      });
-
-      // Invalidate transactions list to refresh
-      queryClient.invalidateQueries(["transactions"]);
-      
-      // Close dialog
-      setStatusDialogOpen(false);
-      
-      toast.success("Status transaksi berhasil diperbarui");
-    },
-    onError: (error) => {
-      toast.error(error.message || "Gagal memperbarui status transaksi");
-    },
-  });
-
-  // Handler functions
-  const openDetailDialog = (id) => {
+  const openDetailDialog = async (id) => {
     setSelectedId(id);
-    setDetailOpen(true); // Open dialog immediately
+    await getTransactionById(id);
+    setDetailOpen(true);
   };
 
-  const openStatusDialog = (id) => {
+  const openStatusDialog = async (id) => {
     setSelectedId(id);
-    setStatusDialogOpen(true); // Open dialog immediately
+    await getTransactionById(id);
+    setStatusDialogOpen(true);
   };
 
   const handleStatusUpdate = async (status) => {
-    if (!selectedId) return;
-    
-    updateStatusMutation.mutate({
-      id: selectedId,
-      status,
-    });
-  };
-
-  const closeDialogs = () => {
-    setDetailOpen(false);
-    setStatusDialogOpen(false);
-    // Keep selectedId for a moment to allow smooth closing
-    setTimeout(() => setSelectedId(null), 300);
+    const success = await updateTransactionStatus(selectedId, status);
+    if (success) {
+      setStatusDialogOpen(false);
+      toast({
+        title: "Status Berhasil Diubah",
+        description: `Status transaksi berhasil diubah menjadi ${status}`,
+      });
+    }
   };
 
   return {
-    // Dialog states
     detailOpen,
     setDetailOpen,
     statusDialogOpen,
     setStatusDialogOpen,
-    
-    // Data
-    selectedTransaction,
-    isLoading,
-    error,
-    
-    // Actions
+    selectedId,
     openDetailDialog,
     openStatusDialog,
     handleStatusUpdate,
-    closeDialogs,
-    
-    // Mutation states
-    isUpdatingStatus: updateStatusMutation.isLoading,
   };
 }

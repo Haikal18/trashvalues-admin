@@ -29,19 +29,18 @@ function History() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isPDFModalOpen, setIsPDFModalOpen] = useState(false);
   
-  // Updated to use React Query hooks
   const {
     transactions,
-    isLoading: loading,
-    metadata,
-    currentPage,
-    currentLimit,
-    currentStatus,
-    goToPage,
-    changeLimit,
-    changeStatus,
-    refetch: fetchTransactions,
-    prefetchTransaction,
+    loading,
+    totalRows,
+    fetchTransactions,
+    handlePageChange,
+    handlePerRowsChange,
+    handleStatusFilterChange,
+    updateTransactionStatus,
+    getTransactionById,
+    selectedTransaction,
+    params,
   } = useTransactions();
 
   // Gunakan useMemo sebagai pengganti useState + useEffect untuk filtering
@@ -85,24 +84,6 @@ function History() {
     setSearchTerm(e.target.value);
   };
 
-  // Updated pagination handlers to use React Query
-  const handlePageChange = (page) => {
-    if (!searchTerm) {
-      goToPage(page);
-    }
-  };
-
-  const handlePerRowsChange = (newPerPage) => {
-    if (!searchTerm) {
-      changeLimit(newPerPage);
-    }
-  };
-
-  const handleStatusFilterChange = (status) => {
-    changeStatus(status);
-    setSearchTerm(""); // Clear search when changing filter
-  };
-
   // Prepare data for PDF export
   const prepareTransactionsForPDF = () => {
     return filteredTransactions.map(t => ({
@@ -115,36 +96,22 @@ function History() {
     }));
   };
 
-  // Updated to use React Query dialogs
   const {
     detailOpen,
     setDetailOpen,
     statusDialogOpen,
     setStatusDialogOpen,
-    selectedTransaction,
-    isLoading: dialogLoading,
     openDetailDialog,
     openStatusDialog,
     handleStatusUpdate,
-  } = useTransactionDialogs();
+  } = useTransactionDialogs(updateTransactionStatus, getTransactionById);
 
-  // Updated columns to include prefetch function
   const columns = getTransactionTableColumns(
     openDetailDialog,
     openStatusDialog,
     isMobile,
-    isTablet,
-    prefetchTransaction // Pass preload function
+    isTablet
   );
-
-  // Create params object for compatibility with existing filter buttons
-  const params = {
-    status: currentStatus,
-    limit: currentLimit,
-  };
-
-  // Calculate total rows for pagination
-  const totalRows = searchTerm ? filteredTransactions.length : metadata?.total || 0;
 
   return (
     <div className="p-4 md:p-6">
@@ -278,10 +245,10 @@ function History() {
               data={filteredTransactions}
               pagination
               paginationServer={!searchTerm} // Use client pagination when searching
-              paginationTotalRows={totalRows}
+              paginationTotalRows={searchTerm ? filteredTransactions.length : totalRows}
               onChangePage={handlePageChange}
               onChangeRowsPerPage={handlePerRowsChange}
-              paginationPerPage={currentLimit}
+              paginationPerPage={params.limit}
               paginationRowsPerPageOptions={[10, 25, 50, 100]}
               responsive
               highlightOnHover
@@ -336,7 +303,6 @@ function History() {
         open={detailOpen}
         setOpen={setDetailOpen}
         transaction={selectedTransaction}
-        isLoading={dialogLoading}
       />
 
       <TransactionStatusDialog
@@ -344,7 +310,6 @@ function History() {
         setOpen={setStatusDialogOpen}
         transaction={selectedTransaction}
         onStatusUpdate={handleStatusUpdate}
-        isLoading={dialogLoading}
       />
 
       {/* PDF Export Dialog */}
