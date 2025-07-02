@@ -480,7 +480,7 @@ export default function WasteTypes() {
       <div className="space-y-4 p-4 md:p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="text-xl md:text-2xl font-bold">Waste Types</h1>
-          <Button onClick={openAddDialog} className="w-full sm:w-auto bg-[#4CAF50] text-white">
+          <Button onClick={openAddDialog} className="w-full sm:w-auto bg-[#4CAF50] text-white hover:bg-[#45A049]">
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>

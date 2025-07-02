@@ -160,7 +160,7 @@ export default function AddWasteTypeDialog({
             <Button variant="outline" type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" disabled={isCreating}>
+            <Button className="bg-[#4CAF50] text-white hover:bg-[#45A049]"type="submit" disabled={isCreating}>
               {isCreating ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creating...
