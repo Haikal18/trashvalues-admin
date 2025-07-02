@@ -130,7 +130,7 @@ export const getTransactionTableColumns = (
               </div>
               <div className="text-xs text-gray-500">
                 {row.type === "WITHDRAWAL"
-                  ? `${row.bankName} - ${row.accountNumber}`
+                  ? row.description || `Payment ID: ${row.paymentId}` || "No bank details"
                   : row.description || "No description"}
               </div>
             </div>
@@ -314,11 +314,7 @@ export const getTransactionTableColumns = (
       cell: (row) => (
         <div className="text-sm">
           {row.type === "WITHDRAWAL"
-            ? row.bankName && row.accountNumber
-              ? `${row.bankName} - ${row.accountNumber} (${
-                  row.accountHolderName || "Unknown"
-                })`
-              : "No bank details"
+            ? row.description || `Payment ID: ${row.paymentId}` || "No bank details"
             : row.description || "No description"}
         </div>
       ),
