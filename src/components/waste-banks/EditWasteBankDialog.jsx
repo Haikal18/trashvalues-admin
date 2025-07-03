@@ -48,7 +48,7 @@ export default function EditWasteBankDialog({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-lg">
         <DialogHeader>
           <DialogTitle>Edit Bank Sampah</DialogTitle>
         </DialogHeader>

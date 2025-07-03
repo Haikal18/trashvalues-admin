@@ -82,7 +82,7 @@ export default function EditWasteTypeDialog({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto  rounded-lg">
         <DialogHeader>
           <DialogTitle>Edit Waste Type</DialogTitle>
         </DialogHeader>

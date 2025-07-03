@@ -38,7 +38,7 @@ export default function TransactionDetailDialog({ open, setOpen, transaction }) 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md rounded-lg">
         <DialogHeader>
           <DialogTitle>Detail Transaksi</DialogTitle>
         </DialogHeader>
@@ -98,7 +98,7 @@ export default function TransactionDetailDialog({ open, setOpen, transaction }) 
               </div>
             </div>
 
-                
+
             {transaction.description && (
               <div className="flex items-start gap-3">
                 <FileText className="h-4 w-4 mt-0.5 text-muted-foreground" />

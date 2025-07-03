@@ -27,7 +27,7 @@ import {
   
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md rounded-lg">
           <DialogHeader>
             <DialogTitle>Detail Dropoff</DialogTitle>
           </DialogHeader>

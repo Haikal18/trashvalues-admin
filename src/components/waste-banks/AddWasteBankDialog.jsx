@@ -39,7 +39,7 @@ export default function AddWasteBankDialog({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-lg">
         <DialogHeader>
           <DialogTitle>Tambah Bank Sampah</DialogTitle>
         </DialogHeader>

@@ -8,7 +8,7 @@ import { Loader2, Download } from "lucide-react";
 const PDFExport = ({ isOpen, onClose, transactions }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md rounded-lg">
         <DialogHeader>
           <DialogTitle>Export Transaksi ke PDF</DialogTitle>
         </DialogHeader>

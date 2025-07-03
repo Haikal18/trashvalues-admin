@@ -62,7 +62,7 @@ export default function TransactionStatusDialog({ open, setOpen, transaction, on
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md rounded-lg">
         <DialogHeader>
           <DialogTitle>Ubah Status Transaksi</DialogTitle>
         </DialogHeader>
