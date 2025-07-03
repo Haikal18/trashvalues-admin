@@ -98,40 +98,7 @@ export default function TransactionDetailDialog({ open, setOpen, transaction }) 
               </div>
             </div>
 
-            {isWithdrawal && (
-              <>
-                <div className="flex items-start gap-3">
-                  <Landmark className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">Detail Bank</div>
-                    <div className="text-sm text-muted-foreground">
-                      {transaction.bankName || "-"}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <ChevronsRight className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">Nomor Rekening</div>
-                    <div className="text-sm text-muted-foreground">
-                      {transaction.accountNumber || "-"}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">Nama Pemilik Rekening</div>
-                    <div className="text-sm text-muted-foreground">
-                      {transaction.accountHolderName || "-"}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
+                
             {transaction.description && (
               <div className="flex items-start gap-3">
                 <FileText className="h-4 w-4 mt-0.5 text-muted-foreground" />
