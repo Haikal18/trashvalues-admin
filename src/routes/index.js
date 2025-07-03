@@ -5,6 +5,7 @@ import Profile from "../pages/Profile";
 import Dropoff from "../pages/Dropoff";
 import History from "../pages/History";
 import WasteTypes from "../pages/WasteTypes";
+import BankSampah from "../pages/BankSampah";
 
 export const publicRoutes = [
   {
@@ -38,6 +39,10 @@ export const protectedRoutes = [
         path: "waste-types",
         component: WasteTypes,
       },
+      {
+        path: "bank-sampah",
+        component: BankSampah,
+      },     
       {
         path: "",
         redirectTo: "/dashboard",

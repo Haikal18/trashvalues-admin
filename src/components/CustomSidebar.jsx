@@ -11,6 +11,8 @@ import {
   Menu,
   X,
   Recycle,
+  Banknote,
+  Ban,
 } from "lucide-react";
 
 const menus = [
@@ -38,6 +40,11 @@ const menus = [
     label: "History",
     path: "/history",
     icon: History,
+  },
+    {
+    label: "Bank Sampah",
+    path: "/bank-sampah",
+    icon: Banknote,
   },
 ];
 
