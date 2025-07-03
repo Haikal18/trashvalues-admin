@@ -111,7 +111,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => openDetailDialog(row.id || row._id)}
+                  onClick={() => openDetailDialog(row.id || row._id, row)}
                   className="h-8 w-8 p-0"
                 >
                   <Eye className="h-4 w-4" />
@@ -124,7 +124,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem
-                      onClick={() => openStatusDialog(row.id || row._id)}
+                      onClick={() => openStatusDialog(row.id || row._id, row)}
                     >
                       <RefreshCw className="h-4 w-4 mr-2" /> Ubah Status
                     </DropdownMenuItem>

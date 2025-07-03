@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,25 +7,35 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Check, Clock, Loader2, AlertTriangle, X } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Loader2, Clock, AlertTriangle, Check, X } from "lucide-react";
 
 export default function DropoffStatusDialog({ open, setOpen, dropoff, onStatusUpdate }) {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    if (open && dropoff) {
+      setSelectedStatus(dropoff.status || "");
+    }
+  }, [open, dropoff]);
 
   const handleStatusChange = (value) => {
     setSelectedStatus(value);
   };
 
   const submitStatusUpdate = async () => {
-    if (!selectedStatus) return;
+    if (!selectedStatus || selectedStatus === dropoff?.status) return;
     
     setIsUpdating(true);
-    await onStatusUpdate(selectedStatus);
-    setIsUpdating(false);
+    try {
+      await onStatusUpdate(selectedStatus);
+    } catch (error) {
+      console.error('Error updating status:', error);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   if (!dropoff) return null;
@@ -117,7 +128,7 @@ export default function DropoffStatusDialog({ open, setOpen, dropoff, onStatusUp
           </Button>
           <Button 
             onClick={submitStatusUpdate} 
-            disabled={!selectedStatus || isUpdating}
+            disabled={!selectedStatus || isUpdating || selectedStatus === dropoff?.status}
           >
             {isUpdating ? (
               <>

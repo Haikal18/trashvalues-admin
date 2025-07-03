@@ -115,14 +115,9 @@ function Dropoff() {
       <div className="grid gap-6">
         <div className="flex items-center justify-between">
           <h1 className="text-xl md:text-2xl font-bold">Kelola Dropoff</h1>
-          <Button
-            onClick={fetchDropoffs}
-            variant="outline"
-            size="sm"
-            className="gap-2"
-          >
+          <Button variant="outline" size="sm" className="gap-1" onClick={() => window.location.reload()}>
             <RefreshCw className="h-4 w-4" />
-            {!isMobile && "Refresh"}
+            <span className="hidden sm:inline">Refresh</span>
           </Button>
         </div>
 
