@@ -205,7 +205,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
               onClick={() => openDetailDialog(row.id || row._id)}
               className="h-8 w-8"
             >
-              <Edit className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -297,7 +297,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
               className="h-8 w-8"
               title="Detail Dropoff"
             >
-              <Edit className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
