@@ -114,60 +114,53 @@ export default function BankSampah() {
   };
 
   // Mobile columns - card layout
-  const mobileColumns = [
+    const mobileColumns = [
     {
-      name: "Bank Sampah",
-      sortable: true,
-      grow: 1,
-      cell: (row) => (
+        name: "Bank Sampah",
+        sortable: true,
+        grow: 1,
+        cell: (row) => (
         <div className="py-2 pr-2 w-full">
-          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
-              <div className="h-10 w-10 rounded-md bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <div className="h-10 w-10 rounded-md bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
                 <MapPin className="h-5 w-5 text-green-600" />
-              </div>
-              <div className="flex flex-col min-w-0 flex-1">
+                </div>
+                <div className="flex flex-col min-w-0 flex-1">
                 <span className="font-medium text-sm truncate">{row.name}</span>
                 <span className="text-xs text-gray-500 truncate">
-                  {row.address}
+                    {row.address}
                 </span>
-              </div>
+                </div>
             </div>
-          </div>
-
-          <div className="text-sm text-gray-600 mb-2 line-clamp-2">
-            {row.address}
-          </div>
-
-          <div className="flex justify-between items-center">
-            <span className="text-xs text-gray-500">
-              {formatDate(row.createdAt)}
-            </span>
-            <div className="flex space-x-1">
-              <DropdownMenu>
+            {/* Action pindah ke kanan */}
+            <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                     <MoreHorizontal className="h-4 w-4" />
-                  </Button>
+                </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => openEditDialog(row)}>
+                <DropdownMenuItem onClick={() => openEditDialog(row)}>
                     <Pencil className="h-4 w-4 mr-2" /> Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
+                </DropdownMenuItem>
+                <DropdownMenuItem
                     className="text-red-600"
                     onClick={() => openDeleteDialog(row)}
-                  >
+                >
                     <Trash2 className="h-4 w-4 mr-2" /> Delete
-                  </DropdownMenuItem>
+                </DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
+            </DropdownMenu>
             </div>
-          </div>
+
+            <div className="text-sm text-gray-600 mb-2 line-clamp-2">
+            {row.address}
+            </div>
         </div>
-      ),
+        ),
     },
-  ];
+    ];
 
   // Tablet columns
   const tabletColumns = [
@@ -198,11 +191,6 @@ export default function BankSampah() {
         <div className="flex flex-col py-1">
           <div className="text-sm text-gray-600 mb-1 line-clamp-1">
             {row.address}
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-500">
-              {formatDate(row.createdAt)}
-            </span>
           </div>
         </div>
       ),
