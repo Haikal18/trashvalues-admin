@@ -242,6 +242,7 @@ function Dropoff() {
                 noHeader={isMobile}
                 sortIcon={<ChevronDown size={16} />}
                 defaultSortFieldId={1}
+                defaultSortAsc={false}
                 paginationComponentOptions={{
                   rowsPerPageText: "Baris per halaman:",
                   rangeSeparatorText: "dari",

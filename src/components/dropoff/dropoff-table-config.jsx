@@ -59,6 +59,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
     const mobileColumns = [
       {
         name: "Dropoff",
+        selector: (row) => row.createdAt,
         sortable: true,
         grow: 1,
         cell: (row) => (
@@ -146,7 +147,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
     const tabletColumns = [
       {
         name: "User",
-        selector: (row) => row.user?.name || row.userId,
+        selector: (row) => row.createdAt,
         sortable: true,
         grow: 1,
         cell: (row) => (
@@ -235,7 +236,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
     const desktopColumns = [
       {
         name: "User",
-        selector: (row) => row.user?.name || row.userId,
+        selector: (row) => row.createdAt,
         sortable: true,
         width: "180px",
         cell: (row) => (
