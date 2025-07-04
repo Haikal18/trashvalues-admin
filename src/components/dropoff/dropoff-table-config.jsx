@@ -111,7 +111,7 @@ export const getTableColumns = (openDetailDialog, openStatusDialog, openDeleteDi
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => openDetailDialog(row.id || row._id, row)}
+                  onClick={() => openDetailDialog(row.id || row._id)}
                   className="h-8 w-8 p-0"
                 >
                   <Eye className="h-4 w-4" />
