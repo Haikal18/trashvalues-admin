@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,22 +10,33 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Loader2 } from "lucide-react";
 
-export default function DropoffDeleteDialog({ open, setOpen, onConfirm }) {
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const handleDelete = async () => {
-    setIsDeleting(true);
-    await onConfirm();
-    setIsDeleting(false);
+export default function DeleteDropoffDialog({
+  open,
+  onClose,
+  dropoff,
+  onDelete,
+  isDeleting,
+}) {
+  const handleDelete = () => {
+    if (dropoff?.id) {
+      onDelete(dropoff.id);
+    }
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Hapus Dropoff?</AlertDialogTitle>
           <AlertDialogDescription>
-            Tindakan ini tidak dapat dibatalkan. Data dropoff akan dihapus secara permanen dari server.
+            Apakah Anda yakin ingin menghapus dropoff ini? Tindakan ini tidak dapat dibatalkan.
+            {dropoff && (
+              <div className="mt-2 text-sm">
+                <strong>ID:</strong> #{dropoff.id}<br />
+                <strong>User:</strong> {dropoff.user?.name || "Unknown"}<br />
+                <strong>Status:</strong> {dropoff.status}
+              </div>
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

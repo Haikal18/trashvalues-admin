@@ -1,125 +1,107 @@
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogFooter,
-  } from "@/components/ui/dialog";
-  import { Button } from "@/components/ui/button";
-  import { Badge } from "@/components/ui/badge";
-  import { Separator } from "@/components/ui/separator";
-  import { formatDate } from "@/lib/utils";
-  import { Clock, MapPin, User, Calendar, Package, Scale, Coins } from "lucide-react";
-  
-  export default function DropoffDetailDialog({ open, setOpen, dropoff }) {
-    if (!dropoff) return null;
-  
-    const getStatusColor = (status) => {
-      const statusColors = {
-        PENDING: "bg-yellow-100 text-yellow-800 border-yellow-200",
-        PROCESSING: "bg-blue-100 text-blue-800 border-blue-200",
-        COMPLETED: "bg-green-100 text-green-800 border-green-200",
-        REJECTED: "bg-red-100 text-red-800 border-red-200",
-        CANCELLED: "bg-gray-100 text-gray-800 border-gray-200",
-      };
-      return statusColors[status] || statusColors.PENDING;
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/utils";
+import { Clock, MapPin, User, Calendar, Package, Scale, Coins } from "lucide-react";
+
+export default function DropoffDetailDialog({ open, onClose, dropoff }) {
+  if (!dropoff) return null;
+
+  const getStatusColor = (status) => {
+    const statusColors = {
+      PENDING: "bg-yellow-100 text-yellow-800 border-yellow-200",
+      PROCESSING: "bg-blue-100 text-blue-800 border-blue-200",
+      COMPLETED: "bg-green-100 text-green-800 border-green-200",
+      REJECTED: "bg-red-100 text-red-800 border-red-200",
+      CANCELLED: "bg-gray-100 text-gray-800 border-gray-200",
     };
-  
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-md rounded-lg">
-          <DialogHeader>
-            <DialogTitle>Detail Dropoff</DialogTitle>
-          </DialogHeader>
-          
-          <div className="py-2">
-            <div className="flex justify-between items-center mb-4">
-              <div className="text-sm font-medium text-muted-foreground">
-                ID: #{(dropoff.id || dropoff._id)}
-              </div>
-              <Badge className={`${getStatusColor(dropoff.status)}`}>
-                {dropoff.status}
-              </Badge>
+    return statusColors[status] || statusColors.PENDING;
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md rounded-lg">
+        <DialogHeader>
+          <DialogTitle>Detail Dropoff</DialogTitle>
+        </DialogHeader>
+        
+        <div className="py-2">
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-sm font-medium text-muted-foreground">
+              ID: #{dropoff.id}
             </div>
-  
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">{dropoff.user?.name || "Pengguna"}</div>
-                  <div className="text-sm text-muted-foreground">{dropoff.user?.email || "-"}</div>
-                </div>
-              </div>
-  
-              <div className="flex items-start gap-3">
-                <Calendar className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Tanggal Dropoff</div>
-                  <div className="text-sm text-muted-foreground">{formatDate(dropoff.createdAt)}</div>
-                </div>
-              </div>
-  
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Lokasi Dropoff</div>
-                  <div className="text-sm text-muted-foreground">{dropoff.location || "-"}</div>
-                </div>
-              </div>
-  
-              <Separator />
-  
-              <div className="flex items-start gap-3">
-                <Package className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Jenis Sampah</div>
-                  <div className="text-sm text-muted-foreground">{dropoff.wasteType || "-"}</div>
-                </div>
-              </div>
-  
-              <div className="flex items-start gap-3">
-                <Scale className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Berat</div>
-                  <div className="text-sm text-muted-foreground">{dropoff.weight || "0"} kg</div>
-                </div>
-              </div>
-  
-              <div className="flex items-start gap-3">
-                <Coins className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Poin</div>
-                  <div className="text-sm text-green-600 font-medium">{dropoff.points || "0"} poin</div>
-                </div>
-              </div>
-  
-              <Separator />
-  
-              <div className="flex items-start gap-3">
-                <Clock className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <div className="font-medium">Status Terakhir</div>
-                  <div className="text-sm text-muted-foreground">
-                    Diperbarui pada {formatDate(dropoff.updatedAt || dropoff.createdAt)}
-                  </div>
-                </div>
-              </div>
-  
-              {dropoff.notes && (
-                <div className="mt-2 p-3 bg-gray-50 rounded-md text-sm">
-                  <div className="font-medium mb-1">Catatan:</div>
-                  <div className="text-muted-foreground">{dropoff.notes}</div>
-                </div>
-              )}
-            </div>
+            <Badge className={`${getStatusColor(dropoff.status)}`}>
+              {dropoff.status}
+            </Badge>
           </div>
-          
-          <DialogFooter className="sm:justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Tutup
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  }
+
+          <div className="space-y-3">
+            <div className="flex items-start gap-3">
+              <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="font-medium">{dropoff.user?.name || "Unknown User"}</div>
+                <div className="text-sm text-muted-foreground">{dropoff.user?.email || "-"}</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Calendar className="h-4 w-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="font-medium">Tanggal Pickup</div>
+                <div className="text-sm text-muted-foreground">{formatDate(dropoff.pickupDate)}</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="font-medium">Alamat Pickup</div>
+                <div className="text-sm text-muted-foreground">{dropoff.pickupAddress}</div>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="flex items-start gap-3">
+              <Package className="h-4 w-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="font-medium">Metode Pickup</div>
+                <div className="text-sm text-muted-foreground">{dropoff.pickupMethod || "PICKUP"}</div>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="flex items-start gap-3">
+              <Clock className="h-4 w-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="font-medium">Dibuat</div>
+                <div className="text-sm text-muted-foreground">{formatDate(dropoff.createdAt)}</div>
+              </div>
+            </div>
+
+            {dropoff.notes && (
+              <div className="mt-2 p-3 bg-gray-50 rounded-md text-sm">
+                <div className="font-medium mb-1">Catatan:</div>
+                <div className="text-muted-foreground">{dropoff.notes}</div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <DialogFooter className="sm:justify-end">
+          <Button variant="outline" onClick={onClose}>
+            Tutup
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
