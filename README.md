@@ -1,6 +1,6 @@
 # ♻️ TrashValue Admin Dashboard
 
-> **Mengubah Sampah Menjadi Nilai**
+> **Mengubah Sampah Menjadi Cuan**
 
 ---
 ## Akun Admin
