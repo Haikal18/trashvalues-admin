@@ -149,7 +149,7 @@ export default function WasteTypes() {
             </Badge>
           </div>
 
-          <div className="text-sm text-gray-600 mb-2 line-clamp-2">
+          <div className="text-sm text-gray-600 mb-2 line-clamp-2 truncate max-w-[150px]">
             {row.description}
           </div>
 
