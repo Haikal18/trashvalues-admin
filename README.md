@@ -206,7 +206,7 @@ Aplikasi mendukung **fully responsive** layout:
 
 ---
 
-## 📊 Data Management
+## 📊 State Management
 
 * Real-time fetching dengan **React Query**
 * Optimistic updates untuk UX yang lebih baik
