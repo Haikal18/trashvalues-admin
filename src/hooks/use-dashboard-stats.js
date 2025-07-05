@@ -19,7 +19,8 @@ const fetchTransactionStats = async () => {
 };
 
 const fetchWasteStats = async () => {
-  const response = await api.get("/waste-types");
+  // Menggunakan endpoint dropoffs untuk menghitung total weight dari wasteItems
+  const response = await api.get("/dropoffs");
   return response.data.data || response.data;
 };
 
@@ -117,32 +118,27 @@ const processWasteStats = (data) => {
   // Pastikan data adalah array
   if (!Array.isArray(data)) return { count: 0, totalWeight: 0, wasteGrowth: 0 };
   
-  // Hitung statistik sampah
+  // Hitung statistik sampah dari dropoffs
   const count = data.length;
   
-  // Hitung total berat
+  // Hitung total berat dari semua wasteItems
   let totalWeight = 0;
   let wasteTypes = {};
   
-  // Jika data adalah waste types, ambil dari properti berbeda
-  if (data.some(item => item.hasOwnProperty('weight'))) {
-    // Data dropoffs dengan informasi waste
-    totalWeight = data.reduce((sum, item) => sum + (Number(item.weight) || 0), 0);
-    
-    // Hitung tipe sampah
-    data.forEach(item => {
-      const type = item.wasteType || 'Unknown';
-      if (!wasteTypes[type]) wasteTypes[type] = 0;
-      wasteTypes[type] += Number(item.weight) || 0;
-    });
-  } else {
-    // Data waste types
-    data.forEach(type => {
-      const collectedAmount = Number(type.collectedAmount) || 0;
-      totalWeight += collectedAmount;
-      wasteTypes[type.name || 'Unknown'] = collectedAmount;
-    });
-  }
+  data.forEach(dropoff => {
+    // Ambil weight dari wasteItems array
+    if (Array.isArray(dropoff.wasteItems)) {
+      dropoff.wasteItems.forEach(item => {
+        const weight = Number(item.weight) || 0;
+        totalWeight += weight;
+        
+        // Hitung per tipe sampah
+        const type = item.wasteType?.name || 'Unknown';
+        if (!wasteTypes[type]) wasteTypes[type] = 0;
+        wasteTypes[type] += weight;
+      });
+    }
+  });
   
   // Cari tipe sampah paling banyak
   let topWasteType = 'None';
@@ -214,6 +210,16 @@ const processRecentDropoffs = (data) => {
       ? dropoff.wasteItems[0].wasteType?.name || "Mixed"
       : "Unknown";
     
+    // Calculate total weight from wasteItems
+    const totalWeight = Array.isArray(dropoff.wasteItems) 
+      ? dropoff.wasteItems.reduce((sum, item) => sum + (Number(item.weight) || 0), 0)
+      : 0;
+    
+    // Calculate total points from wasteItems
+    const totalAmount = Array.isArray(dropoff.wasteItems)
+      ? dropoff.wasteItems.reduce((sum, item) => sum + (Number(item.amount) || 0), 0)
+      : 0;
+    
     return {
       id: dropoff.id || dropoff._id,
       user: {
@@ -221,8 +227,8 @@ const processRecentDropoffs = (data) => {
         image: dropoff.user?.profilePicture || `https://i.pravatar.cc/150?u=${dropoff.userId}`,
       },
       wasteType: wasteType,
-      weight: `${dropoff.totalWeight || 0} kg`,
-      points: `${dropoff.totalAmount || 0}`,
+      weight: `${totalWeight} kg`,
+      points: `${totalAmount}`,
       status: dropoff.status || "PENDING",
       date: relativeTime,
     };
@@ -310,6 +316,7 @@ export function useDashboardStats() {
   console.log("Processed Recent Transactions:", processedRecentTransactions);
   console.log("Raw Recent Dropoffs:", recentDropoffsQuery.data);
   console.log("Processed Recent Dropoffs:", processedRecentDropoffs);
+  console.log("Waste Stats from Dropoffs:", processedWasteStats);
 
   // Return all processed data
   return {
