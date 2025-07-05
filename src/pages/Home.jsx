@@ -273,8 +273,9 @@ function Home() {
                   recentDropoffs.map((dropoff) => (
                     <div
                       key={dropoff.id}
-                      className="flex items-center justify-between p-4 sm:px-6"
+                      className="p-4 sm:px-6 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between"
                     >
+                      {/* User Info */}
                       <div className="flex items-center gap-3">
                         <div>
                           <div className="font-medium text-sm">
@@ -285,19 +286,32 @@ function Home() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <div className="text-sm">
-                          <span className="text-muted-foreground">
-                            {dropoff.wasteType}
-                          </span>
-                          <span> • </span>
-                          <span>{dropoff.weight}</span>
-                          <span> • </span>
-                          <span className="text-green-600 font-medium">
-                            {dropoff.points} pts
-                          </span>
+                      
+                      {/* Dropoff Details - Mobile: Full width, Desktop: Right aligned */}
+                      <div className="space-y-2 sm:space-y-1 sm:flex sm:flex-col sm:items-end sm:gap-1">
+                        {/* Waste Info - Mobile: Stacked, Desktop: Inline */}
+                        <div className="flex flex-col gap-1 sm:flex-row sm:gap-0 sm:text-sm">
+                          <div className="flex items-center gap-1 text-sm">
+                            <span className="text-muted-foreground font-medium">
+                              {dropoff.wasteType}
+                            </span>
+                            <span className="hidden sm:inline"> • </span>
+                          </div>
+                          <div className="flex items-center gap-1 text-sm">
+                            <span className="font-medium">{dropoff.weight}</span>
+                            <span className="hidden sm:inline"> • </span>
+                          </div>
+                          <div className="text-sm">
+                            <span className="text-green-600 font-medium">
+                              {dropoff.points} pts
+                            </span>
+                          </div>
                         </div>
-                        <div>{getStatusBadge(dropoff.status)}</div>
+                        
+                        {/* Status Badge */}
+                        <div className="flex justify-start sm:justify-end">
+                          {getStatusBadge(dropoff.status)}
+                        </div>
                       </div>
                     </div>
                   ))
