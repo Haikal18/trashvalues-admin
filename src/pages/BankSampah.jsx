@@ -329,22 +329,94 @@ export default function BankSampah() {
     }
   };
 
-  const LoadingSkeleton = () => (
-    <div className="space-y-3">
-      {[...Array(5)].map((_, i) => (
-        <div key={i} className="border rounded-lg p-4">
-          <div className="flex items-center space-x-3">
-            <Skeleton className="h-10 w-10 rounded-md" />
-            <div className="space-y-2 flex-1">
-              <Skeleton className="h-4 w-40" />
-              <Skeleton className="h-3 w-60" />
+  const LoadingSkeleton = () => {
+    if (isMobile) {
+      // Mobile skeleton - matches mobile card layout
+      return (
+        <div className="space-y-2">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="border rounded-lg p-3 bg-white">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center flex-1">
+                  <Skeleton className="h-10 w-10 rounded-md mr-3 flex-shrink-0" />
+                  <div className="flex flex-col min-w-0 flex-1 space-y-1">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-3 w-24" />
+                  </div>
+                </div>
+                <Skeleton className="h-8 w-8" />
+              </div>
+              <Skeleton className="h-3 w-full" />
             </div>
-            <Skeleton className="h-8 w-8" />
+          ))}
+        </div>
+      );
+    }
+
+    if (isTablet) {
+      // Tablet skeleton - matches tablet layout
+      return (
+        <div className="space-y-3">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="border rounded-lg p-4 bg-white">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center flex-1 mr-4">
+                  <Skeleton className="h-10 w-10 rounded-md mr-3 flex-shrink-0" />
+                  <div className="flex flex-col min-w-0 space-y-1">
+                    <Skeleton className="h-4 w-40" />
+                    <Skeleton className="h-3 w-32" />
+                  </div>
+                </div>
+                <Skeleton className="h-8 w-8" />
+              </div>
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-3/4 mt-1" />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // Desktop skeleton - matches table layout
+    return (
+      <div className="rounded-md border overflow-x-auto">
+        <div className="border-b">
+          <div className="flex">
+            <div className="p-4 flex-1">
+              <Skeleton className="h-6 w-32" />
+            </div>
+            <div className="p-4 flex-1">
+              <Skeleton className="h-6 w-16" />
+            </div>
+            <div className="p-4 w-24">
+              <Skeleton className="h-6 w-12" />
+            </div>
           </div>
         </div>
-      ))}
-    </div>
-  );
+        <div className="divide-y">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="flex">
+              <div className="p-4 flex-1">
+                <div className="flex items-center">
+                  <Skeleton className="h-10 w-10 rounded-md mr-3 flex-shrink-0" />
+                  <Skeleton className="h-4 w-40" />
+                </div>
+              </div>
+              <div className="p-4 flex-1">
+                <Skeleton className="h-3 w-full mb-1" />
+                <Skeleton className="h-3 w-3/4" />
+              </div>
+              <div className="p-4 w-24 flex justify-center">
+                <Skeleton className="h-8 w-8" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
