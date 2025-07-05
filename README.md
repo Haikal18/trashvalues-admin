@@ -20,7 +20,6 @@
 
 * Statistik overview (Total Dropoffs, Total Earnings, Total Waste)
 * Quick actions untuk navigasi cepat
-* Grafik dan visualisasi data
 
 ### 2. Manajemen Jenis Sampah (Waste Types)
 
