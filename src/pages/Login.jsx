@@ -130,12 +130,6 @@ function Login() {
                   <Label htmlFor="password" className="text-sm font-medium">
                     Password
                   </Label>
-                  <a
-                    href="#"
-                    className="text-xs text-green-600 hover:text-green-700 font-medium"
-                  >
-                    Lupa password?
-                  </a>
                 </div>
                 <div className="relative flex items-center mt-1.5">
                   <div className="absolute left-3 flex h-10 w-5 items-center justify-center text-gray-400">
