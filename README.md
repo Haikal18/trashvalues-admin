@@ -61,7 +61,7 @@
 
 ### Frontend
 
-* **React 18** - Library utama untuk UI
+* **React 19** - Library utama untuk UI
 * **Vite** - Build tool & dev server
 * **Tailwind CSS** - Utility-first CSS framework
 * **shadcn/ui** - Komponen modern dan reusable
