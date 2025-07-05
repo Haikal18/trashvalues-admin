@@ -312,7 +312,7 @@ export const getTransactionTableColumns = (
       sortable: false,
       grow: 1,
       cell: (row) => (
-        <div className="text-sm">
+        <div className="text-sm truncate max-w-[100px]">
           {row.type === "WITHDRAWAL"
             ? row.description || `Payment ID: ${row.paymentId}` || "No bank details"
             : row.description || "No description"}
