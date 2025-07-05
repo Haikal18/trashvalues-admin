@@ -116,72 +116,84 @@ export default function WasteTypes() {
 
   // Mobile columns - card layout
   const mobileColumns = [
-    {
-      name: "Waste Type",
-      sortable: true,
-      grow: 1,
-      cell: (row) => (
-        <div className="py-2 pr-2 w-full">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center">
-              <div className="h-10 w-10 rounded-md overflow-hidden mr-3 flex-shrink-0">
+      {
+        name: "Waste Type",
+        sortable: true,
+        grow: 1,
+        cell: (row) => (
+          <div className="py-3 w-full">
+            <div className="flex items-start gap-3 mb-3">
+              {/* Image */}
+              <div className="h-12 w-12 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                 <img
                   src={row.image}
                   alt={row.name}
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="flex flex-col min-w-0 flex-1">
-                <span className="font-medium text-sm truncate">{row.name}</span>
-                <span className="text-xs text-gray-500">
+              
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between mb-1">
+                  <h3 className="font-medium text-sm text-gray-900 truncate max-w-[150px] pr-2">
+                    {row.name}
+                  </h3>
+                  <Badge 
+                    className={`text-xs font-medium px-2 py-1 flex-shrink-0 ${
+                      row.isActive 
+                        ? "bg-green-100 text-green-800 border border-green-200" 
+                        : "bg-red-100 text-red-800 border border-red-200"
+                    }`}
+                  >
+                    {row.isActive ? "Active" : "Inactive"}
+                  </Badge>
+                </div>
+                
+                <p className="text-sm font-medium text-gray-900 mb-1">
                   {formatCurrency(row.pricePerKg)}/kg
-                </span>
+                </p>
+                
+                <p className="text-sm text-gray-600 line-clamp-2 mb-2">
+                  {row.description}
+                </p>
+                
+                <p className="text-xs text-gray-500">
+                  {formatDate(row.createdAt)}
+                </p>
+              </div>
+              
+              {/* Action Menu */}
+              <div className="flex-shrink-0">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-8 w-8 p-0 hover:bg-gray-100"
+                    >
+                      <MoreHorizontal className="h-4 w-4 text-gray-500" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-40">
+                    <DropdownMenuItem onClick={() => openEditDialog(row)}>
+                      <Pencil className="h-4 w-4 mr-2" /> 
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="text-red-600 focus:text-red-600"
+                      onClick={() => openDeleteDialog(row)}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" /> 
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
-            <Badge 
-              className={`text-xs ${
-                row.isActive 
-                  ? "bg-green-500 text-white hover:bg-green-600" 
-                  : "bg-red-500 text-white hover:bg-red-600"
-              }`}
-            >
-              {row.isActive ? "Active" : "Inactive"}
-            </Badge>
           </div>
-
-          <div className="text-sm text-gray-600 mb-2 line-clamp-2 truncate max-w-[150px]">
-            {row.description}
-          </div>
-
-          <div className="flex justify-between items-center">
-            <span className="text-xs text-gray-500">
-              {formatDate(row.createdAt)}
-            </span>
-            <div className="flex space-x-1">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => openEditDialog(row)}>
-                    <Pencil className="h-4 w-4 mr-2" /> Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="text-red-600"
-                    onClick={() => openDeleteDialog(row)}
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" /> Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-  ];
+        ),
+      },
+    ];
 
   // Tablet columns
   const tabletColumns = [
