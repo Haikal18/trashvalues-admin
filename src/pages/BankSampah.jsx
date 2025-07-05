@@ -127,10 +127,12 @@ export default function BankSampah() {
                 <MapPin className="h-5 w-5 text-green-600" />
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
-                <span className="font-medium text-sm truncate">{row.name}</span>
-                <span className="text-xs text-gray-500 truncate">
+                  <span className="font-medium text-sm truncate max-w-[150px]" title={row.name}>
+                    {row.name}
+                  </span>
+                  <span className="text-xs text-gray-500 truncate max-w-[150px]" title={row.address}>
                     {row.address}
-                </span>
+                  </span>
                 </div>
             </div>
             {/* Action pindah ke kanan */}
@@ -154,7 +156,7 @@ export default function BankSampah() {
             </DropdownMenu>
             </div>
 
-            <div className="text-sm text-gray-600 mb-2 line-clamp-2">
+            <div className="text-sm text-gray-600 mb-2 line-clamp-2 truncate max-w-[150px]">
             {row.address}
             </div>
         </div>
