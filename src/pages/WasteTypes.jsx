@@ -135,7 +135,7 @@ export default function WasteTypes() {
               {/* Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between mb-1">
-                  <h3 className="font-medium text-sm text-gray-900 truncate max-w-[150px] pr-2">
+                  <h3 className="font-medium text-sm text-gray-900 truncate max-w-[100px] pr-2">
                     {row.name}
                   </h3>
                   <Badge 
